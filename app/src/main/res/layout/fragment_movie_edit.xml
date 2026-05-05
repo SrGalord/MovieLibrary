@@ -13,45 +13,105 @@
 
         android:orientation="vertical"
 
-        android:padding="16dp">
+        android:padding="20dp">
 
-        <EditText
-            android:id="@+id/edtTitle"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="MovieLibrary"
+            android:textSize="28sp"
+            android:textStyle="bold"
+
+            android:layout_marginBottom="20dp"/>
+
+        <!-- TITULO -->
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Título" />
 
-        <EditText
-            android:id="@+id/edtYear"
+            android:layout_marginTop="12dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:hint="Título"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- AÑO -->
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Año"
-            android:inputType="number" />
 
-        <EditText
-            android:id="@+id/edtGenre"
+            android:layout_marginTop="12dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtYear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:hint="Año"
+                android:inputType="number"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- GENERO -->
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Género" />
 
-        <EditText
-            android:id="@+id/edtRating"
+            android:layout_marginTop="12dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtGenre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:hint="Género"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- RATING -->
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Rating"
-            android:inputType="numberDecimal" />
+
+            android:layout_marginTop="12dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtRating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:hint="Rating"
+                android:inputType="numberDecimal"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- CHECK -->
 
         <CheckBox
             android:id="@+id/checkWatched"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Vista" />
+
+            android:layout_marginTop="20dp"
+
+            android:text="Ya vi esta película"/>
+
+        <!-- BOTON -->
 
         <Button
             android:id="@+id/btnSave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Guardar" />
+
+            android:layout_marginTop="24dp"
+
+            android:text="Guardar película"/>
 
     </LinearLayout>
 

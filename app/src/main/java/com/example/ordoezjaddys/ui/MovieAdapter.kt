@@ -18,18 +18,26 @@ class MovieAdapter(
 
         fun bind(movie: Movie) {
 
-            binding.txtItemTitle.text =
+            // TITULO
+            binding.txtTitle.text =
                 movie.title
 
-            binding.txtItemInfo.text =
-                "${movie.year} - ${movie.genre}"
+            // GENERO
+            binding.txtGenre.text =
+                movie.genre
 
+            // AÑO
+            binding.txtYear.text =
+                movie.year.toString()
+
+            // ESTADO
             binding.txtWatched.text =
                 if (movie.watched)
                     "✅ Vista"
                 else
-                    "❌ No vista"
+                    "⏳ Pendiente"
 
+            // CLICK
             binding.root.setOnClickListener {
 
                 onClick(movie)
