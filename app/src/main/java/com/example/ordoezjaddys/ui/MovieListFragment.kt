@@ -56,9 +56,18 @@ class MovieListFragment : Fragment(
             viewLifecycleOwner
         ) { movies ->
 
+            // CONTADOR
             binding.txtMovies.text =
                 "Películas registradas: ${movies.size}"
 
+            // MENSAJE VACÍO
+            binding.txtEmpty.visibility =
+                if (movies.isEmpty())
+                    View.VISIBLE
+                else
+                    View.GONE
+
+            // LISTA
             adapter.submitList(movies)
         }
 

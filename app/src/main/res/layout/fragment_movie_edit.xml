@@ -38,7 +38,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:hint="Título"/>
+                android:hint="Título"
+
+                android:importantForAutofill="no"
+                android:autofillHints=""
+                android:inputType="textNoSuggestions"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- AÑO -->
@@ -55,6 +59,9 @@
                 android:layout_height="wrap_content"
 
                 android:hint="Año"
+
+                android:importantForAutofill="no"
+                android:autofillHints=""
                 android:inputType="number"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -71,7 +78,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:hint="Género"/>
+                android:hint="Género"
+
+                android:importantForAutofill="no"
+                android:autofillHints=""
+                android:inputType="textNoSuggestions"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- RATING -->
@@ -88,6 +99,9 @@
                 android:layout_height="wrap_content"
 
                 android:hint="Rating"
+
+                android:importantForAutofill="no"
+                android:autofillHints=""
                 android:inputType="numberDecimal"/>
         </com.google.android.material.textfield.TextInputLayout>
 
