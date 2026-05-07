@@ -12,41 +12,28 @@ class MovieRepository(
 ) {
 
     fun getMovies(): LiveData<List<Movie>> {
-
         return movieDao.getAllMovies().map { list ->
-
             list.map {
                 it.toMovie()
             }
         }
     }
 
-    fun getMovie(id: Int): LiveData<Movie> {
-
-        return movieDao.getMovieById(id).map {
-
-            it.toMovie()
+    fun getMovie(id: Int): LiveData<Movie?> {
+        return movieDao.getMovieById(id).map { entity ->
+            entity?.toMovie()
         }
     }
 
     suspend fun insert(movie: Movie) {
-
-        movieDao.insert(
-            movie.toEntity()
-        )
+        movieDao.insert(movie.toEntity())
     }
 
     suspend fun update(movie: Movie) {
-
-        movieDao.update(
-            movie.toEntity()
-        )
+        movieDao.update(movie.toEntity())
     }
 
     suspend fun delete(movie: Movie) {
-
-        movieDao.delete(
-            movie.toEntity()
-        )
+        movieDao.delete(movie.toEntity())
     }
 }

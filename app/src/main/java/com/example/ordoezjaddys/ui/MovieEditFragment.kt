@@ -15,13 +15,10 @@ class MovieEditFragment : Fragment(
     R.layout.fragment_movie_edit
 ) {
 
-    private var _binding:
-            FragmentMovieEditBinding? = null
-
+    private var _binding: FragmentMovieEditBinding? = null
     private val binding get() = _binding!!
 
     private val args: MovieEditFragmentArgs by navArgs()
-
     private val viewModel: MovieViewModel by viewModels()
 
     private var movieId = -1
@@ -30,67 +27,60 @@ class MovieEditFragment : Fragment(
         view: View,
         savedInstanceState: Bundle?
     ) {
-
         super.onViewCreated(view, savedInstanceState)
 
         _binding = FragmentMovieEditBinding.bind(view)
 
         movieId = args.movieId
 
-        // EDITAR
         if (movieId != -1) {
 
             viewModel.getMovie(movieId)
-                .observe(viewLifecycleOwner) {
+                .observe(viewLifecycleOwner) { movie ->
 
-                    binding.edtTitle.setText(it.title)
+                    if (movie == null) {
+                        findNavController().navigate(
+                            R.id.movieListFragment
+                        )
+                        return@observe
+                    }
 
-                    binding.edtYear
-                        .setText(it.year.toString())
-
-                    binding.edtGenre.setText(it.genre)
-
-                    binding.edtRating
-                        .setText(it.rating.toString())
-
-                    binding.checkWatched.isChecked =
-                        it.watched
+                    binding.edtTitle.setText(movie.title)
+                    binding.edtYear.setText(movie.year.toString())
+                    binding.edtGenre.setText(movie.genre)
+                    binding.edtRating.setText(movie.rating.toString())
+                    binding.checkWatched.isChecked = movie.watched
                 }
         }
 
         binding.btnSave.setOnClickListener {
 
+            val title = binding.edtTitle.text.toString().trim()
+            val yearText = binding.edtYear.text.toString().trim()
+            val genre = binding.edtGenre.text.toString().trim()
+            val ratingText = binding.edtRating.text.toString().trim()
+
+            if (
+                title.isEmpty() ||
+                yearText.isEmpty() ||
+                genre.isEmpty() ||
+                ratingText.isEmpty()
+            ) {
+                return@setOnClickListener
+            }
+
             val movie = Movie(
-
-                id = if (movieId == -1) 0
-                else movieId,
-
-                title =
-                    binding.edtTitle.text.toString(),
-
-                year =
-                    binding.edtYear.text
-                        .toString()
-                        .toInt(),
-
-                genre =
-                    binding.edtGenre.text.toString(),
-
-                rating =
-                    binding.edtRating.text
-                        .toString()
-                        .toFloat(),
-
-                watched =
-                    binding.checkWatched.isChecked
+                id = if (movieId == -1) 0 else movieId,
+                title = title,
+                year = yearText.toInt(),
+                genre = genre,
+                rating = ratingText.toFloat(),
+                watched = binding.checkWatched.isChecked
             )
 
             if (movieId == -1) {
-
                 viewModel.insert(movie)
-
             } else {
-
                 viewModel.update(movie)
             }
 
@@ -99,9 +89,7 @@ class MovieEditFragment : Fragment(
     }
 
     override fun onDestroyView() {
-
         super.onDestroyView()
-
         _binding = null
     }
 }

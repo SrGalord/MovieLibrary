@@ -15,13 +15,10 @@ class MovieDetailFragment : Fragment(
     R.layout.fragment_movie_detail
 ) {
 
-    private var _binding:
-            FragmentMovieDetailBinding? = null
-
+    private var _binding: FragmentMovieDetailBinding? = null
     private val binding get() = _binding!!
 
     private val args: MovieDetailFragmentArgs by navArgs()
-
     private val viewModel: MovieViewModel by viewModels()
 
     private lateinit var currentMovie: Movie
@@ -30,7 +27,6 @@ class MovieDetailFragment : Fragment(
         view: View,
         savedInstanceState: Bundle?
     ) {
-
         super.onViewCreated(view, savedInstanceState)
 
         _binding = FragmentMovieDetailBinding.bind(view)
@@ -40,54 +36,57 @@ class MovieDetailFragment : Fragment(
         viewModel.getMovie(movieId)
             .observe(viewLifecycleOwner) { movie ->
 
+                if (movie == null) {
+                    findNavController().navigate(
+                        R.id.movieListFragment
+                    )
+                    return@observe
+                }
+
                 currentMovie = movie
 
                 binding.txtTitle.text = movie.title
-
-                binding.txtYear.text =
-                    "Año: ${movie.year}"
-
-                binding.txtGenre.text =
-                    "Género: ${movie.genre}"
-
-                binding.txtRating.text =
-                    "Rating: ${movie.rating}"
-
-                binding.checkWatched.isChecked =
-                    movie.watched
+                binding.txtYear.text = "Año: ${movie.year}"
+                binding.txtGenre.text = "Género: ${movie.genre}"
+                binding.txtRating.text = "Rating: ${movie.rating}"
+                binding.checkWatched.isChecked = movie.watched
             }
 
-        binding.checkWatched.setOnCheckedChangeListener {
-                _, isChecked ->
+        binding.checkWatched.setOnCheckedChangeListener { _, isChecked ->
 
-            val updatedMovie = currentMovie.copy(
-                watched = isChecked
-            )
-
-            viewModel.update(updatedMovie)
+            if (::currentMovie.isInitialized) {
+                val updatedMovie = currentMovie.copy(
+                    watched = isChecked
+                )
+                viewModel.update(updatedMovie)
+            }
         }
 
         binding.btnEdit.setOnClickListener {
 
-            val action =
-                MovieDetailFragmentDirections
-                    .actionDetailToEdit(currentMovie.id)
+            if (::currentMovie.isInitialized) {
+                val action =
+                    MovieDetailFragmentDirections
+                        .actionDetailToEdit(currentMovie.id)
 
-            findNavController().navigate(action)
+                findNavController().navigate(action)
+            }
         }
 
         binding.btnDelete.setOnClickListener {
 
-            viewModel.delete(currentMovie)
+            if (::currentMovie.isInitialized) {
+                viewModel.delete(currentMovie)
 
-            findNavController().popBackStack()
+                findNavController().navigate(
+                    R.id.movieListFragment
+                )
+            }
         }
     }
 
     override fun onDestroyView() {
-
         super.onDestroyView()
-
         _binding = null
     }
 }

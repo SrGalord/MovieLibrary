@@ -18,44 +18,32 @@ class MovieViewModel(
     val movies: LiveData<List<Movie>>
 
     init {
+        val dao = AppDatabase
+            .getDatabase(application)
+            .movieDao()
 
-        val dao =
-            AppDatabase
-                .getDatabase(application)
-                .movieDao()
-
-        repository =
-            MovieRepository(dao)
-
-        movies =
-            repository.getMovies()
+        repository = MovieRepository(dao)
+        movies = repository.getMovies()
     }
 
-    fun getMovie(id: Int): LiveData<Movie> {
-
+    fun getMovie(id: Int): LiveData<Movie?> {
         return repository.getMovie(id)
     }
 
     fun insert(movie: Movie) {
-
         viewModelScope.launch {
-
             repository.insert(movie)
         }
     }
 
     fun update(movie: Movie) {
-
         viewModelScope.launch {
-
             repository.update(movie)
         }
     }
 
     fun delete(movie: Movie) {
-
         viewModelScope.launch {
-
             repository.delete(movie)
         }
     }

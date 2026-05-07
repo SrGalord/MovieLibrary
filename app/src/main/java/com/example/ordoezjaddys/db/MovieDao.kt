@@ -1,4 +1,3 @@
-
 package com.example.ordoezjaddys.db
 
 import androidx.lifecycle.LiveData
@@ -11,7 +10,7 @@ interface MovieDao {
     fun getAllMovies(): LiveData<List<MovieEntity>>
 
     @Query("SELECT * FROM movies WHERE id = :id")
-    fun getMovieById(id: Int): LiveData<MovieEntity>
+    fun getMovieById(id: Int): LiveData<MovieEntity?>
 
     @Insert
     suspend fun insert(movie: MovieEntity)
@@ -22,4 +21,3 @@ interface MovieDao {
     @Delete
     suspend fun delete(movie: MovieEntity)
 }
-
